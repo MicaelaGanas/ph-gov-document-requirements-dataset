@@ -13,7 +13,7 @@ from scraper.csv_writer import write_csv
 from scraper.models import RequirementRecord
 from scraper.registry import ALL_AGENCY_KEYS, SCRAPER_REGISTRY
 
-DEFAULT_OUTPUT = Path("data/gov_requirements.csv")
+DEFAULT_OUTPUT = Path("data/raw/gov_requirements.csv")
 
 
 def parse_args() -> argparse.Namespace:

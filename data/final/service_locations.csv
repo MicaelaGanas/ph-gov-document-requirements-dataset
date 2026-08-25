@@ -1,0 +1,14 @@
+service_location_id,service_id,office_id,service_available,application_method,appointment_required,processing_time,fee,source_url,last_verified
+SL-C7E59BC7,COMELEC-SVC-EA64DC28,COMELEC-OFF-D9D6CAF2,yes,walk_in,no,,,https://www.comelec.gov.ph/?r=VoterRegistration/RegistrationProcedures,2026-08-26
+SL-E9F43819,DFA-SVC-6742AEB4,DFA-OFF-A0160399,yes,online_appointment_and_walk_in,yes,,,https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult,2026-08-26
+SL-B13C19BE,GSIS-SVC-565E68BE,GSIS-OFF-170D2556,yes,online_and_walk_in,unknown,,,https://www.gsis.gov.ph/,2026-08-26
+SL-381B5FF2,LGU-DAVAO-SVC-46B3E984,LGU-DAVAO-OFF-761B8EEC,yes,walk_in,unknown,,,https://davaocity.gov.ph/services/processing-of-business-permits/,2026-08-26
+SL-88D5F773,LTO-SVC-CD0B59B7,LTO-OFF-0835CD18,yes,online_and_walk_in,unknown,,,https://portal.lto.gov.ph/,2026-08-26
+SL-1BB00AF8,NBI-SVC-33D4FC9A,NBI-OFF-159D233B,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,1.5 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
+SL-72F0B9A2,NBI-SVC-33D4FC9A,NBI-OFF-37B468EC,yes,online_applicants_without_e-payment,no,40 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
+SL-F0D0C8D7,NBI-SVC-33D4FC9A,NBI-OFF-5617B8E7,yes,online_and_walk_in,no,,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
+SL-E29AE285,NBI-SVC-33D4FC9A,NBI-OFF-BE56190F,yes,walk_in_applicants,no,2 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
+SL-7C473210,NBI-SVC-33D4FC9A,NBI-OFF-C4CE5E19,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,20 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
+SL-9623D2DC,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-6988B45B,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/members/formal/registration.php,2026-08-26
+SL-1836518A,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-1496BFF4,yes,walk-in,no,,,https://philsys.gov.ph/supporting-documents/,2026-08-26
+SL-0A223C10,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-9E066D6C,yes,walk-in,no,,,https://philsys.gov.ph/registration-process/,2026-08-26

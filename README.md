@@ -1,6 +1,8 @@
-# Philippine Government Document Requirements Dataset
+# Intelligent Planning and Geospatial Mapping of Document Acquisition Routes
 
-A Python web scraper that extracts government service requirements from official Philippine government websites and stores each requirement as a separate row in a CSV file.
+Research dataset pipeline for **Philippine government IDs and official documents**, collected only from official `.gov.ph` websites and Citizen's Charters.
+
+**Research title:** *Intelligent Planning and Geospatial Mapping of Document Acquisition Routes for Philippine Government IDs and Official Documents*
 
 ## Quick start
 
@@ -8,150 +10,160 @@ A Python web scraper that extracts government service requirements from official
 python -m venv .venv
 .venv\Scripts\activate          # Windows
 pip install -r requirements.txt
-python scrape.py
+python -m playwright install chromium   # optional, for Cloudflare sites
+
+# Full pipeline: scrape → raw → cleaned → 5 final CSV tables
+python build.py
+
+# Scrape specific agencies only
+python build.py -a dfa nbi philsys sss psa
+
+# Rebuild final tables from existing raw scrape (no network)
+python build.py --export-only
 ```
 
-Output is written to `data/gov_requirements.csv` by default.
-
-## Scrape specific agencies
-
-```bash
-python scrape.py -a dfa nbi philsys sss
-python scrape.py -o data/passport_only.csv -a dfa
-python scrape.py -v
-```
-
-## Supported agencies
-
-| Key | Agency | Primary source |
-|-----|--------|----------------|
-| `philsys` | PhilSys / PSA National ID | philsys.gov.ph |
-| `psa` | PSA Civil Registration | psa.gov.ph |
-| `dfa` | DFA Passport | consular.dfa.gov.ph, passport.gov.ph |
-| `nbi` | NBI Clearance | nbi.gov.ph |
-| `lto` | LTO Driver's License | lto.gov.ph |
-| `prc` | PRC Licensure | prc.gov.ph |
-| `comelec` | COMELEC Voter Registration | comelec.gov.ph |
-| `dti` | DTI Business Name Registration | bnrs.dti.gov.ph |
-| `sss` | SSS Membership | sss.gov.ph |
-| `philhealth` | PhilHealth Registration | philhealth.gov.ph |
-| `pagibig` | Pag-IBIG Membership | pagibigfund.gov.ph |
-| `gsis` | GSIS Member Services | gsis.gov.ph |
-| `davao` | Davao City LGU (sample LGU) | davaocity.gov.ph |
-
-## CSV schema
-
-### Core columns (requested)
-
-| Column | Description |
-|--------|-------------|
-| `record_id` | Stable unique ID (`AGENCY-service-requirement-hash`) |
-| `agency` | Issuing government agency |
-| `service_name` | Service being applied for |
-| `target_document` | Output document or credential |
-| `transaction_type` | e.g. `new_application`, `renewal` |
-| `applicant_type` | Who the requirement applies to |
-| `requirement_name` | Short label for the requirement |
-| `requirement_type` | `document`, `procedure`, `fee`, `eligibility`, etc. |
-| `requirement_role` | `required_document`, `acceptable_id`, `supporting_document`, `procedure`, etc. |
-| `conditional` | `yes` / `no` — is this requirement conditional? |
-| `condition` | When the requirement applies |
-| `issuing_agency` | Agency that issues the supporting document |
-| `application_method` | `online`, `walk_in`, `online_and_walk_in`, etc. |
-| `appointment_required` | `yes` / `no` / `unknown` |
-| `processing_time` | Stated processing duration |
-| `fee` | Stated fee amount |
-| `location` | Where to apply |
-| `source_url` | Official page scraped |
-| `last_verified` | Date the record was scraped (ISO 8601) |
-
-### Analyst extensions
-
-| Column | Description |
-|--------|-------------|
-| `agency_code` | Short code for joins/filters |
-| `service_category` | High-level grouping |
-| `requirement_description` | Full extracted text |
-| `document_format` | e.g. `original`, `photocopy`, `notarized` |
-| `quantity` | Copies required, if stated |
-| `fee_currency` | Default `PHP` |
-| `source_section` | Heading/section on the source page |
-| `requirement_order` | Sequence on the page |
-| `scrape_status` | `success`, `partial`, `seed`, or `blocked` |
-| `notes` | Scraper comments, fallback context |
-
-## Scrape status values
-
-- **success** — Parsed directly from live HTML
-- **partial** — Some content extracted; page incomplete or portal-only
-- **seed** — Baseline requirements when the site blocks bots or uses JS rendering
-- **blocked** — Scraper could not access the page; manual verification needed
-
-Several `.gov.ph` sites use Cloudflare, WAF, reCAPTCHA, or JavaScript rendering (PSA, LTO, Pag-IBIG, GSIS, COMELEC). The scraper records this explicitly rather than silently omitting agencies.
-
-## Project layout
+## Project structure
 
 ```
-scrape.py                 # CLI entry point
-config/sources.yaml       # Source registry (documentation)
+build.py                      # End-to-end pipeline entry point
+scrape.py                     # Scraper-only CLI (writes data/raw/)
+config/sources.yaml           # Official source registry (documentation)
 scraper/
-  models.py               # RequirementRecord + CSV columns
-  http.py                 # HTTP client with retries
-  base.py                 # Base scraper class
-  registry.py             # Agency scraper registry
-  csv_writer.py           # CSV export
-  parsers/generic.py      # Shared HTML parsers
-  agencies/               # One module per agency
+  common.py                   # Shared fetch/parse helpers
+  psa_scraper.py              # PSA prototype entry point
+  agencies/                   # One module per agency (13 agencies)
+  models.py                   # Raw RequirementRecord model
+processing/
+  build_dataset.py            # Raw → 5 normalized CSV tables
+  clean_data.py               # Dedupe + type normalization
+  normalize_documents.py      # Document/agency name normalization
+  validate_data.py            # FK / ID integrity checks
+mining/
+  association_analysis.py     # Document co-occurrence mining starter
 data/
-  gov_requirements.csv    # Generated output
+  raw/                        # Unprocessed scrape output
+  cleaned/                    # Deduped flat requirements
+  final/                      # Research dataset (5 CSV files)
+output/                       # Mining / analysis outputs
+notebooks/                    # Exploratory analysis
 ```
 
-## Design notes for data analysts
+## Official data sources
 
-Each **requirement** is one row, not one service. A passport application might produce dozens of rows: core documents, conditional supporting documents, acceptable IDs, fees, and processing times.
+| Agency | Acronym | Service | Official URLs |
+|--------|---------|---------|---------------|
+| PhilSys / PSA | PHILSYS | National ID Registration | philsys.gov.ph/registration-process, supporting-documents |
+| PSA | PSA | Civil Registration | psa.gov.ph/civilregistration |
+| DFA | DFA | Passport (Adult New) | consular.dfa.gov.ph passport requirements, valid IDs |
+| NBI | NBI | NBI Clearance | nbi.gov.ph citizens-charter, how-to-apply |
+| LTO | LTO | Driver's License | lto.gov.ph (Cloudflare; seed when blocked) |
+| PRC | PRC | Professional Licensure | prc.gov.ph/list-of-requirements |
+| COMELEC | COMELEC | Voter Registration | comelec.gov.ph (JS-rendered; seed when blocked) |
+| DTI | DTI | Business Name Registration | bnrs.dti.gov.ph |
+| SSS | SSS | Membership Registration | sss.gov.ph become-a-member, valid IDs |
+| PhilHealth | PHILHEALTH | Formal Economy Registration | philhealth.gov.ph/members/formal/registration.php |
+| Pag-IBIG | PAGIBIG | Membership | pagibigfund.gov.ph |
+| GSIS | GSIS | Member Services | gsis.gov.ph |
+| Davao City LGU | LGU-DAVAO | Business Permit | davaocity.gov.ph |
 
-Use `conditional` + `condition` to model branching logic (e.g. married females, late-registered birth certificates). Use `scrape_status` to filter production-ready vs. seeded records. Join on `agency_code` + `service_name` for service-level dashboards.
+**Not used:** Kaggle, UCI, Wikipedia, blogs, or unofficial third-party sites.
 
-## Bypassing 403 / Cloudflare (PSA, LTO, DFA consular)
+## Final dataset tables (`data/final/`)
 
-Some `.gov.ph` sites block plain HTTP requests. This project supports **Playwright** (headless Chromium) as a fallback.
+### 1. `government_services.csv`
+One row per government service (passport, NBI clearance, SSS registration, etc.).
 
-### Setup (one time)
+| Column | Description |
+|--------|-------------|
+| `service_id` | Stable unique ID |
+| `agency`, `agency_acronym` | Issuing agency |
+| `service_name`, `target_document` | Service and output credential |
+| `transaction_type`, `applicant_type` | Who / what transaction |
+| `application_method`, `appointment_required` | How to apply |
+| `processing_time`, `fee` | Service-level metadata when stated |
+| `source_url`, `source_title`, `last_verified` | Provenance |
+| `scrape_status`, `record_count` | Data quality |
+
+### 2. `requirements.csv`
+One row per requirement (document, ID, procedure step, fee line).
+
+| Column | Description |
+|--------|-------------|
+| `requirement_id`, `service_id` | IDs + foreign key |
+| `requirement_name` | **Original official wording** |
+| `requirement_name_normalized` | Canonical label for analysis joins |
+| `requirement_type`, `requirement_role` | `required_document`, `acceptable_id`, `supporting_document`, `procedure`, etc. |
+| `conditional`, `condition` | Branching logic |
+| `issuing_agency`, `document_format`, `quantity` | Document metadata |
+| `source_url`, `source_section`, `requirement_description` | Traceability |
+
+### 3. `government_offices.csv`
+Office/location entities extracted from Citizen's Charters and location fields.
+
+| Column | Description |
+|--------|-------------|
+| `office_id`, `office_name`, `office_type` | e.g. consular_office, regional_office, bureau |
+| `region`, `province`, `city`, `address` | Geographic fields (empty when not stated) |
+| `latitude`, `longitude` | **Empty until geocoded** — never fabricated |
+| `contact_number`, `operating_hours` | When available from source |
+
+### 4. `service_locations.csv`
+Links services to offices where they can be applied for.
+
+### 5. `document_dependencies.csv`
+Prerequisite graph for pathway planning.
+
+| `relationship_type` | Meaning |
+|---------------------|---------|
+| `required` | Must submit |
+| `conditional` | Required only if condition applies |
+| `alternative` | Pick any one (e.g. acceptable IDs) |
+
+## Raw vs cleaned vs final
+
+| Stage | Path | Contents |
+|-------|------|----------|
+| Raw | `data/raw/gov_requirements.csv` | Flat scrape, one row per requirement |
+| Cleaned | `data/cleaned/gov_requirements.csv` | Deduped + normalized types |
+| Final | `data/final/*.csv` | Normalized 5-table research schema |
+
+## Data collection ethics
+
+- Respects rate limits (sequential requests, retries with backoff)
+- No personal information about citizens
+- No fabricated coordinates or fees
+- Blocked/seed rows clearly marked via `scrape_status`
+- Every record preserves `source_url`
+
+## Analysis filter (recommended)
+
+For document requirement mining:
+
+```text
+requirement_role IN ('required_document', 'acceptable_id', 'supporting_document')
+AND scrape_status = 'success'
+```
+
+Run association mining:
 
 ```bash
-pip install playwright
-python -m playwright install chromium
+python -m mining.association_analysis   # or via build.py (default)
 ```
 
-### Usage
+Output: `output/association_document_pairs.csv`
+
+## Browser fallback (Cloudflare)
 
 ```bash
-# Automatic: try HTTP first, then Playwright on 403 (default)
-python scrape.py
-
-# Force browser for all fetches (slower, use for blocked agencies only)
-python scrape.py --browser -a dfa psa lto
-
-# Scrape only agencies that benefit from browser
-python scrape.py -a dfa lto psa
+python build.py --browser -a dfa psa lto
 ```
 
-### What works today
+| Site | Status |
+|------|--------|
+| DFA consular | Live via Playwright |
+| PhilSys, NBI, PRC, SSS, PhilHealth | Live via HTTP |
+| PSA, LTO, Pag-IBIG, GSIS, COMELEC | Often blocked → seed/blocked rows |
 
-| Site | HTTP | Playwright fallback | Notes |
-|------|------|---------------------|-------|
-| DFA consular | 403 | **Works** | Full passport requirements |
-| LTO portal | 403 on lto.gov.ph | Portal loads but is login-only | Use seed data; requirements not published on portal |
-| PSA | 403 | Still blocked | Cloudflare blocks headless browsers; use seed data or manual browser export |
+## License / disclaimer
 
-If PSA remains blocked, request certificates via [PSA Serbilis](https://psa.gov.ph/) and add a manual CSV supplement, or export requirements from the site in your browser and place them in `data/manual/psa_requirements.csv` (future enhancement).
-
-## Limitations
-
-- LGU requirements vary by city/municipality; this repo includes **Davao City** as a template.
-- PRC list-of-requirements is large; parsing captures list items and documentary requirement blocks but may include navigation noise — filter by `requirement_type=document` for clean document lists.
-- For blocked sites, install Playwright (see above) or use manual CSV supplements.
-
-## License
-
-Public domain government information; verify requirements on official sites before relying on this dataset for legal or compliance purposes.
+Public-domain government information. Always verify on official websites before legal or compliance use.

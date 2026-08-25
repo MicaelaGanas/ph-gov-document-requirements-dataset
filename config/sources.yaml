@@ -24,11 +24,11 @@ agencies:
     name: Department of Foreign Affairs
     code: DFA
     services:
-      - name: Passport Application
+      - name: Passport Application (Adult New)
         urls:
-          - https://passport.gov.ph/faqs_1
           - https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult
           - https://consular.dfa.gov.ph/valid-ids-for-passport-application/
+        notes: Consular requirements only; FAQ page excluded from document extraction
 
   nbi:
     name: National Bureau of Investigation
