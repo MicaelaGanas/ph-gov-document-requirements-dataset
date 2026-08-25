@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Scraper artifacts
+tmp_*.html
+
+# OS
+.DS_Store
+Thumbs.db

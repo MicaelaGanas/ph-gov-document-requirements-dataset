@@ -1,0 +1,115 @@
+# Official Philippine government service requirement sources
+# Used for documentation and future config-driven scraping.
+
+agencies:
+  philsys:
+    name: Philippine Statistics Authority (PhilSys)
+    code: PHILSYS
+    services:
+      - name: National ID Registration
+        urls:
+          - https://philsys.gov.ph/registration-process/
+          - https://philsys.gov.ph/supporting-documents/
+
+  psa:
+    name: Philippine Statistics Authority
+    code: PSA
+    services:
+      - name: Civil Registration
+        urls:
+          - https://psa.gov.ph/civilregistration
+        notes: Cloudflare-protected; may require browser automation
+
+  dfa:
+    name: Department of Foreign Affairs
+    code: DFA
+    services:
+      - name: Passport Application
+        urls:
+          - https://passport.gov.ph/faqs_1
+          - https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult
+          - https://consular.dfa.gov.ph/valid-ids-for-passport-application/
+
+  nbi:
+    name: National Bureau of Investigation
+    code: NBI
+    services:
+      - name: NBI Clearance Application
+        urls:
+          - https://nbi.gov.ph/citizens-charter/nbi-clearance-application/
+          - https://nbi.gov.ph/how-to-apply-nbi-clearance/
+
+  lto:
+    name: Land Transportation Office
+    code: LTO
+    services:
+      - name: Driver's License
+        urls:
+          - https://lto.gov.ph/
+        notes: Cloudflare-protected
+
+  prc:
+    name: Professional Regulation Commission
+    code: PRC
+    services:
+      - name: Professional Licensure
+        urls:
+          - https://www.prc.gov.ph/list-of-requirements
+
+  comelec:
+    name: Commission on Elections
+    code: COMELEC
+    services:
+      - name: Voter Registration
+        urls:
+          - https://www.comelec.gov.ph/
+        notes: Content loaded via JavaScript
+
+  dti:
+    name: Department of Trade and Industry
+    code: DTI
+    services:
+      - name: Business Name Registration
+        urls:
+          - https://bnrs.dti.gov.ph/
+
+  sss:
+    name: Social Security System
+    code: SSS
+    services:
+      - name: SSS Number / Membership Registration
+        urls:
+          - https://www.sss.gov.ph/become-an-sss-member/
+          - https://www.sss.gov.ph/required-id-cards-and-documents-for-the-issuance-of-ss-number/
+
+  philhealth:
+    name: Philippine Health Insurance Corporation
+    code: PHILHEALTH
+    services:
+      - name: Member Registration (Formal Economy)
+        urls:
+          - https://www.philhealth.gov.ph/members/formal/registration.php
+
+  pagibig:
+    name: Pag-IBIG Fund
+    code: PAGIBIG
+    services:
+      - name: Membership Registration
+        urls:
+          - https://www.pagibigfund.gov.ph/
+
+  gsis:
+    name: Government Service Insurance System
+    code: GSIS
+    services:
+      - name: Member Services / Forms
+        urls:
+          - https://www.gsis.gov.ph/
+
+  davao:
+    name: Davao City LGU
+    code: LGU-DAVAO
+    services:
+      - name: Business Permit Processing
+        urls:
+          - https://davaocity.gov.ph/services/processing-of-business-permits/
