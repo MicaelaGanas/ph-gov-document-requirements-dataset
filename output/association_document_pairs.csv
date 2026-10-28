@@ -1,162 +1,38 @@
 document_a,document_b,co_occurrence_count
-Certificate of Live Birth (PSA),NBI Clearance,15
-Certificate of Live Birth (PSA),PSA Marriage Contract (for married female applicants),15
-Barangay,Certificate of Live Birth (PSA),12
-Barangay,School,12
-Certificate of Live Birth (PSA),School,12
-NBI Clearance,PSA Marriage Contract (for married female applicants),12
-Barangay,Church,11
-Barangay,Employer,11
-Certificate of Live Birth (PSA),Church,11
-Certificate of Live Birth (PSA),Employer,11
-Church,Employer,11
-Church,School,11
-Employer,School,11
-Barangay,NBI Clearance,8
-Certificate of Live Birth (PSA),Payment: P900.00 – complete,8
-NBI Clearance,Payment: P900.00 – complete,8
-NBI Clearance,School,8
-Certificate of Live Birth (PSA),Payment: P900.00,8
-Barangay,PSA Marriage Contract (for married female applicants),7
-PSA Marriage Contract (for married female applicants),Payment: P900.00 – complete,7
-PSA Marriage Contract (for married female applicants),School,7
-NBI Clearance,Payment: P900.00,7
-PSA Marriage Contract (for married female applicants),Payment: P900.00,7
-Church,NBI Clearance,7
-Employer,NBI Clearance,7
-Church,PSA Marriage Contract (for married female applicants),6
-Employer,PSA Marriage Contract (for married female applicants),6
-Application Form,Certificate of Live Birth (PSA),5
-Barangay,Payment: P900.00 – complete,5
-Payment: P900.00 – complete,School,5
-Barangay,One (1) Certificate of Good Moral Character from any of the following:,5
-Barangay,Payment: P900.00,5
-Certificate of Live Birth (PSA),One (1) Certificate of Good Moral Character from any of the following:,5
-Church,One (1) Certificate of Good Moral Character from any of the following:,5
-Church,Payment: P900.00,5
-Employer,One (1) Certificate of Good Moral Character from any of the following:,5
-Employer,Payment: P900.00,5
-One (1) Certificate of Good Moral Character from any of the following:,School,5
-Payment: P900.00,School,5
-Certificate of Live Birth (PSA),Unified Multi-Purpose ID (UMID),4
-Church,Payment: P900.00 – complete,4
-Employer,Payment: P900.00 – complete,4
-Application Form,Copy of passport data page or any equivalent document to establish citizenship,4
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Certificate of Live Birth (PSA),4
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Marriage Certificate/Contract (for married female applicants),4
+Certificate of Live Birth (PSA),PSA Marriage Certificate,50
+Certificate of Live Birth (PSA),Transcript of Records (TOR),50
+PSA Marriage Certificate,Transcript of Records (TOR),49
+Certificate of Live Birth (PSA),NBI Clearance,31
+NBI Clearance,Transcript of Records (TOR),31
+NBI Clearance,PSA Marriage Certificate,30
+Certificate of Live Birth (PSA),College Diploma,5
+College Diploma,NBI Clearance,5
+College Diploma,PSA Marriage Certificate,5
+College Diploma,Transcript of Records (TOR),5
+Certificate of Live Birth (PSA),One (1) Certificate of Good Moral Character from any of the following:,4
+NBI Clearance,One (1) Certificate of Good Moral Character from any of the following:,4
+One (1) Certificate of Good Moral Character from any of the following:,PSA Marriage Certificate,4
+One (1) Certificate of Good Moral Character from any of the following:,Transcript of Records (TOR),4
 Certificate of Live Birth (PSA),Copy of passport data page or any equivalent document to establish citizenship,4
-Certificate of Live Birth (PSA),Marriage Certificate/Contract (for married female applicants),4
-Certificate of Live Birth (PSA),Philippine Identification (PhilID),3
-Philippine Identification (PhilID),Unified Multi-Purpose ID (UMID),3
-Payment: P900.00,Payment: P900.00 – complete,3
-NBI Clearance,One (1) Certificate of Good Moral Character from any of the following:,3
-One (1) Certificate of Good Moral Character from any of the following:,PSA Marriage Contract (for married female applicants),3
-One (1) Certificate of Good Moral Character from any of the following:,Payment: P900.00,3
-Application Form,Barangay,3
-Application Form,"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",3
-Application Form,Church,3
-Application Form,Employer,3
-Application Form,Marriage Certificate/Contract (for married female applicants),3
-Application Form,School,3
-Barangay,"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",3
-Barangay,Copy of passport data page or any equivalent document to establish citizenship,3
-Barangay,Marriage Certificate/Contract (for married female applicants),3
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Church,3
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Copy of passport data page or any equivalent document to establish citizenship,3
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Employer,3
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",NBI Clearance,3
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",School,3
-Church,Copy of passport data page or any equivalent document to establish citizenship,3
-Church,Marriage Certificate/Contract (for married female applicants),3
-Copy of passport data page or any equivalent document to establish citizenship,Employer,3
-Copy of passport data page or any equivalent document to establish citizenship,Marriage Certificate/Contract (for married female applicants),3
-Copy of passport data page or any equivalent document to establish citizenship,School,3
-Employer,Marriage Certificate/Contract (for married female applicants),3
-Marriage Certificate/Contract (for married female applicants),NBI Clearance,3
-Marriage Certificate/Contract (for married female applicants),School,3
-Certificate of Live Birth (PSA),PRC ID,3
-NBI Clearance,PRC ID,3
-PRC ID,PSA Marriage Contract (for married female applicants),3
-Certificate of Live Birth (PSA),Professional Regulatory Commission (PRC) ID,2
-Certificate of Live Birth (PSA),Student Permit (LTO),2
-Philippine Identification (PhilID),Professional Regulatory Commission (PRC) ID,2
-Philippine Identification (PhilID),Student Permit (LTO),2
-Professional Regulatory Commission (PRC) ID,Unified Multi-Purpose ID (UMID),2
-Student Permit (LTO),Unified Multi-Purpose ID (UMID),2
-Five (5) INTRAVENOUS FLUID INSERTIONS,Five (5) SUTURING of PERINEAL LACERATIONS (1st or 2nd degree),2
-Five (5) INTRAVENOUS FLUID INSERTIONS,Twenty (20) INTERNAL EXAMINATIONS,2
-Five (5) INTRAVENOUS FLUID INSERTIONS,Twenty (20) NORMAL DELIVERIES,2
-Five (5) SUTURING of PERINEAL LACERATIONS (1st or 2nd degree),Twenty (20) INTERNAL EXAMINATIONS,2
-Five (5) SUTURING of PERINEAL LACERATIONS (1st or 2nd degree),Twenty (20) NORMAL DELIVERIES,2
-Twenty (20) INTERNAL EXAMINATIONS,Twenty (20) NORMAL DELIVERIES,2
-Certificate of Live Birth (PSA),NSO / PSA Marriage Contract (for married female applicants),2
-Certificate of Live Birth (PSA),"Transcript of Records with scanned picture and Remarks ""For Board Examination Purposes""...",2
-NSO / PSA Marriage Contract (for married female applicants),"Transcript of Records with scanned picture and Remarks ""For Board Examination Purposes""...",2
-* Subject to payment of examination fees,Certificate of Live Birth (PSA),2
-* Subject to payment of examination fees,NBI Clearance,2
-* Subject to payment of examination fees,PSA Marriage Contract (for married female applicants),2
-* Subject to payment of examination fees,Payment: P900.00,2
-Certificate of Live Birth (PSA),PSA Marriage Certificate/Contract (for married female applicants),2
-Certificate of Live Birth (PSA),PSA Marriage Contract (for married female applicants unless maiden name is preferred to be used) - - Original and Photoc...,2
-NBI Clearance,PSA Marriage Certificate/Contract (for married female applicants),2
-PSA Marriage Certificate/Contract (for married female applicants),Payment: P900.00 – complete,2
-Application Form,College Diploma and Transcript of Records with scanned picture,2
-Application Form,NBI Clearance,2
-Application Form,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-Application Form,Other documents that may be required by the Board.,2
-Barangay,College Diploma and Transcript of Records with scanned picture,2
-Barangay,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",College Diploma and Transcript of Records with scanned picture,2
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-Certificate of Live Birth (PSA),College Diploma and Transcript of Records with scanned picture,2
-Certificate of Live Birth (PSA),National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-Certificate of Live Birth (PSA),Other documents that may be required by the Board.,2
-Certificate of Live Birth (PSA),PSA Marriage Contract/Certificate (for married female applicants),2
-Certificate of Live Birth (PSA),Transcript of Records (TOR) with scanned picture and remarks “for Board Examination Purposes”...,2
-Church,College Diploma and Transcript of Records with scanned picture,2
-Church,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-College Diploma and Transcript of Records with scanned picture,Copy of passport data page or any equivalent document to establish citizenship,2
-College Diploma and Transcript of Records with scanned picture,Employer,2
-College Diploma and Transcript of Records with scanned picture,Marriage Certificate/Contract (for married female applicants),2
-College Diploma and Transcript of Records with scanned picture,NBI Clearance,2
-College Diploma and Transcript of Records with scanned picture,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-College Diploma and Transcript of Records with scanned picture,School,2
-Copy of passport data page or any equivalent document to establish citizenship,NBI Clearance,2
-Copy of passport data page or any equivalent document to establish citizenship,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-Copy of passport data page or any equivalent document to establish citizenship,Other documents that may be required by the Board.,2
-Employer,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-Marriage Certificate/Contract (for married female applicants),National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-NBI Clearance,National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,2
-National Bureau of Investigation (NBI) Clearance (valid at least 6 months as of the date of filing of the application)...,School,2
-PSA Marriage Contract/Certificate (for married female applicants),Transcript of Records (TOR) with scanned picture and remarks “for Board Examination Purposes”...,2
-Barangay,Barangay Church School Employer,2
-Barangay Church School Employer,Certificate of Live Birth (PSA),2
-Barangay Church School Employer,Church,2
-Barangay Church School Employer,Employer,2
-Barangay Church School Employer,One (1) Certificate of Good Moral Character from any of the following:,2
-Barangay Church School Employer,School,2
-Application Form,PSA Marriage Contract (for married female applicants),2
-Certificate of Live Birth (PSA),First-Timer:,2
-Certificate of Live Birth (PSA),Repeater:,2
-Copy of passport data page or any equivalent document to establish citizenship,PSA Marriage Contract (for married female applicants),2
-First-Timer:,PSA Marriage Contract (for married female applicants),2
-First-Timer:,Repeater:,2
-PSA Marriage Contract (for married female applicants),Repeater:,2
-Certificate of Live Birth (PSA),College Diploma,2
-College Diploma,NBI Clearance,2
-College Diploma,PSA Marriage Contract (for married female applicants),2
-College Diploma,Payment: P900.00,2
-One (1) Certificate of Good Moral Character from any of the following:,Payment: P900.00 – complete,2
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",PSA Marriage Contract (for married female applicants),2
-"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any com...",Payment: P900.00,2
-Certificate of Live Birth (PSA),National Bureau of Investigation (NBI) Clearance,2
-Marriage Certificate/Contract (for married female applicants),PSA Marriage Contract (for married female applicants),2
-Marriage Certificate/Contract (for married female applicants),Payment: P900.00,2
-Certificate of Employment or Service Record,Certificate of Live Birth (PSA),2
-Certificate of Employment or Service Record,NBI Clearance,2
+Copy of passport data page or any equivalent document to establish citizenship,PSA Marriage Certificate,4
+Copy of passport data page or any equivalent document to establish citizenship,Transcript of Records (TOR),4
+Duly accomplished Application for Permits and Licenses (APL) Form,"Electronically transmitted medical certificate from an LTO-accredited medical clinic, original and one photocopy",3
+Certificate of Live Birth (PSA),One (1) Certificate of Good Moral Character from any of the following: Barangay Church School Employer,3
+One (1) Certificate of Good Moral Character from any of the following: Barangay Church School Employer,PSA Marriage Certificate,3
+One (1) Certificate of Good Moral Character from any of the following: Barangay Church School Employer,Transcript of Records (TOR),3
+College Diploma,Copy of passport data page or any equivalent document to establish citizenship,3
+Copy of passport data page or any equivalent document to establish citizenship,NBI Clearance,3
 Certificate of Employment or Service Record,PRC ID,2
-Certificate of Employment or Service Record,PSA Marriage Contract (for married female applicants),2
-Certificate of Live Birth (PSA),TOR with scanned picture and Remarks “For Board Examination Purposes”,2
-NBI Clearance,TOR with scanned picture and Remarks “For Board Examination Purposes”,2
-PRC ID,TOR with scanned picture and Remarks “For Board Examination Purposes”,2
-PSA Marriage Contract (for married female applicants),TOR with scanned picture and Remarks “For Board Examination Purposes”,2
+Certificate of Live Birth (PSA),Other requirements that the Board may prescribe (e.g. CHED Certificate of equivalency),2
+Other requirements that the Board may prescribe (e.g. CHED Certificate of equivalency),PSA Marriage Certificate,2
+Other requirements that the Board may prescribe (e.g. CHED Certificate of equivalency),Transcript of Records (TOR),2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",Certificate of Live Birth (PSA),2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",College Diploma,2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",Copy of passport data page or any equivalent document to establish citizenship,2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",NBI Clearance,2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",PSA Marriage Certificate,2
+"Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and",Transcript of Records (TOR),2
+Certificate of Live Birth (PSA),"For degrees taken abroad, the applicant has to submit also a Certificate of Equivalency from the CHED.",2
+Copy of passport data page or any equivalent document to establish citizenship,"For degrees taken abroad, the applicant has to submit also a Certificate of Equivalency from the CHED.",2
+"For degrees taken abroad, the applicant has to submit also a Certificate of Equivalency from the CHED.",PSA Marriage Certificate,2
+"For degrees taken abroad, the applicant has to submit also a Certificate of Equivalency from the CHED.",Transcript of Records (TOR),2

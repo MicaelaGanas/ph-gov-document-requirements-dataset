@@ -60,6 +60,12 @@ GOVERNMENT_OFFICES_COLUMNS = [
     "email",
     "official_url",
     "operating_hours",
+    "services_offered",
+    "office_image_url",
+    "office_image_path",
+    "office_image_source",
+    "geocode_source",
+    "geocode_status",
     "source_url",
     "last_verified",
 ]

@@ -148,6 +148,71 @@ def _is_navigation(element: Tag) -> bool:
     return any(token in classes or token in element_id for token in nav_tokens)
 
 
+_REQUIREMENT_MARKERS = (
+    "cef-1",
+    "cef1",
+    "registration form",
+    "valid id",
+    "valid identification",
+    "birth certificate",
+    "passport",
+    "clearance",
+    "requirements",
+    "supporting document",
+    "medical certificate",
+    "driver's license",
+    "driver license",
+    "nbi clearance",
+)
+
+_NAV_SKIP_PHRASES = (
+    "skip to",
+    "accessibility",
+    "sitemap",
+    "transparency seal",
+    "privacy statement",
+    "special projects",
+    "procurement",
+    "previous elections",
+    "overseas voting overview",
+    "resource center overview",
+    "share us",
+    "facebook",
+    "top menu",
+)
+
+
+def page_has_requirement_content(html: str) -> bool:
+    """True when HTML likely contains real requirement text (not only a JS shell)."""
+    lower = (html or "").lower()
+    strong = (
+        "cef-1",
+        "cef1",
+        "valid id",
+        "valid identification",
+        "birth certificate",
+        "nbi clearance",
+        "medical certificate",
+        "supporting document",
+        "passport application",
+    )
+    if any(marker in lower for marker in strong):
+        return True
+    weak_hits = sum(1 for marker in _REQUIREMENT_MARKERS if marker in lower)
+    return weak_hits >= 2
+
+
+def is_likely_navigation_item(text: str) -> bool:
+    lower = clean_text(text).lower()
+    if not lower or len(lower) < 4:
+        return True
+    if len(lower) < 25 and any(p in lower for p in _NAV_SKIP_PHRASES):
+        return True
+    if lower in {"home", "voter registration", "elections", "campaign finance"}:
+        return True
+    return False
+
+
 def find_main_content(soup: BeautifulSoup) -> Tag:
     selectors = [
         "article .entry-content",

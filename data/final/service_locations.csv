@@ -1,14 +1,100 @@
 service_location_id,service_id,office_id,service_available,application_method,appointment_required,processing_time,fee,source_url,last_verified
-SL-C7E59BC7,COMELEC-SVC-EA64DC28,COMELEC-OFF-D9D6CAF2,yes,walk_in,no,,,https://www.comelec.gov.ph/?r=VoterRegistration/RegistrationProcedures,2026-08-26
-SL-E9F43819,DFA-SVC-6742AEB4,DFA-OFF-A0160399,yes,online_appointment_and_walk_in,yes,,,https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult,2026-08-26
-SL-B13C19BE,GSIS-SVC-565E68BE,GSIS-OFF-170D2556,yes,online_and_walk_in,unknown,,,https://www.gsis.gov.ph/,2026-08-26
-SL-381B5FF2,LGU-DAVAO-SVC-46B3E984,LGU-DAVAO-OFF-761B8EEC,yes,walk_in,unknown,,,https://davaocity.gov.ph/services/processing-of-business-permits/,2026-08-26
-SL-88D5F773,LTO-SVC-CD0B59B7,LTO-OFF-0835CD18,yes,online_and_walk_in,unknown,,,https://portal.lto.gov.ph/,2026-08-26
-SL-1BB00AF8,NBI-SVC-33D4FC9A,NBI-OFF-159D233B,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,1.5 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
-SL-72F0B9A2,NBI-SVC-33D4FC9A,NBI-OFF-37B468EC,yes,online_applicants_without_e-payment,no,40 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
-SL-F0D0C8D7,NBI-SVC-33D4FC9A,NBI-OFF-5617B8E7,yes,online_and_walk_in,no,,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
-SL-E29AE285,NBI-SVC-33D4FC9A,NBI-OFF-BE56190F,yes,walk_in_applicants,no,2 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
-SL-7C473210,NBI-SVC-33D4FC9A,NBI-OFF-C4CE5E19,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,20 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-08-26
-SL-9623D2DC,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-6988B45B,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/members/formal/registration.php,2026-08-26
-SL-1836518A,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-1496BFF4,yes,walk-in,no,,,https://philsys.gov.ph/supporting-documents/,2026-08-26
-SL-0A223C10,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-9E066D6C,yes,walk-in,no,,,https://philsys.gov.ph/registration-process/,2026-08-26
+SL-99B380C5,COMELEC-SVC-EA64DC28,COMELEC-OFF-97CE5F62,yes,walk_in,no,,No fee. Application forms are free of charge at the Office of the Election Officer.,https://www.comelec.gov.ph/php-tpls-attachments/VoterRegistration/ApplicationsForms/2026_CEF1_Revised2026.pdf,2026-10-28
+SL-E9F43819,DFA-SVC-6742AEB4,DFA-OFF-A0160399,yes,online_appointment_and_walk_in,yes,,,https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult,2026-10-28
+SL-43109814,GSIS-SVC-6A3DD2EE,GSIS-OFF-805BD63C,yes,walk_in,no,30 minutes,No fee,https://www.gsis.gov.ph/downloads/publications/20250328-Consolidated_2025-GSIS-Citizens_Charter_External-Services_2025_7th%20Edition.pdf,2026-10-28
+SL-9CA1A506,LGU-DAVAO-SVC-17F8AD2E,LGU-DAVAO-OFF-F56DCC5F,yes,walk_in,no,,,https://davaocity.gov.ph/wp-content/uploads/2019/01/Processing-of-Business-Permit.jpg,2026-10-28
+SL-3D275081,LGU-DAVAO-SVC-E39E6B24,LGU-DAVAO-OFF-88587625,yes,online,no,,,https://davaocity.gov.ph/wp-content/uploads/2021/10/new-application-of-business-permit-2-1024x614.gif,2026-10-28
+SL-73CC23E7,LTO-SVC-A2EF05A5,LTO-OFF-0835CD18,yes,walk_in,no,5 hours 38 minutes (walk-in),PHP 685 (application fee PHP 100; license fee PHP 585),https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf,2026-10-28
+SL-549963CE,LTO-SVC-B89F3E4C,LTO-OFF-0835CD18,yes,online_and_walk_in,no,2 hours 11 minutes (walk-in),PHP 585,https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf,2026-10-28
+SL-EFFADC44,LTO-SVC-ED2AD0B5,LTO-OFF-0835CD18,yes,online_and_walk_in,no,1 hour 53 minutes (walk-in),PHP 250 (student permit fee PHP 150; application fee PHP 100),https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf,2026-10-28
+SL-1BB00AF8,NBI-SVC-33D4FC9A,NBI-OFF-159D233B,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,1.5 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-10-28
+SL-72F0B9A2,NBI-SVC-33D4FC9A,NBI-OFF-37B468EC,yes,online_applicants_without_e-payment,no,40 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-10-28
+SL-F0D0C8D7,NBI-SVC-33D4FC9A,NBI-OFF-5617B8E7,yes,online_and_walk_in,no,,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-10-28
+SL-E29AE285,NBI-SVC-33D4FC9A,NBI-OFF-BE56190F,yes,walk_in_applicants,no,2 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-10-28
+SL-7C473210,NBI-SVC-33D4FC9A,NBI-OFF-C4CE5E19,yes,online_applicants_with_e-payment_–_https://clearance.nbi.gov.ph/,no,20 seconds,P115.00; P165.00; P415.00,https://nbi.gov.ph/citizens-charter/nbi-clearance-application/,2026-10-28
+SL-9623D2DC,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-6988B45B,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/members/formal/registration.php,2026-10-28
+SL-1836518A,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-1496BFF4,yes,walk-in,no,,,https://philsys.gov.ph/supporting-documents/,2026-10-28
+SL-316E3FA2,PSA-SVC-A33FE5BF,PSA-OFF-B2A9442E,yes,online_and_walk_in,yes,,,https://psa.gov.ph/birth-certificate,2026-10-28
+SL-4A703902,LGU-DAVAO-SVC-17F8AD2E,LGU-DAVAO-OFF-602BAC52,yes,walk_in,no,,,https://davaocity.gov.ph/services/processing-of-business-permits/,2026-10-28
+SL-B55D5F09,LGU-DAVAO-SVC-E39E6B24,LGU-DAVAO-OFF-602BAC52,yes,online,no,,,https://davaocity.gov.ph/services/processing-of-business-permits/,2026-10-28
+SL-9C93510C,PSA-SVC-6703ECBB,PSA-OFF-C96C1839,yes,,unknown,,,https://rsso11.psa.gov.ph/content/public-advisory-crs-online-appointment-system,2026-10-28
+SL-BAF27F70,PSA-SVC-A33FE5BF,PSA-OFF-C96C1839,yes,online_and_walk_in,yes,,,https://rsso11.psa.gov.ph/content/public-advisory-crs-online-appointment-system,2026-10-28
+SL-5C6F90DC,PSA-SVC-874EEEC3,PSA-OFF-C96C1839,yes,,unknown,,,https://rsso11.psa.gov.ph/content/public-advisory-crs-online-appointment-system,2026-10-28
+SL-3FE07B31,PSA-SVC-3634404E,PSA-OFF-C96C1839,yes,,unknown,,,https://rsso11.psa.gov.ph/content/public-advisory-crs-online-appointment-system,2026-10-28
+SL-7A777B55,LTO-SVC-A2EF05A5,LTO-OFF-6BA7E79C,yes,walk_in,no,5 hours 38 minutes (walk-in),PHP 685 (application fee PHP 100; license fee PHP 585),https://lto.gov.ph/,2026-10-28
+SL-AD1CF6B5,LTO-SVC-B89F3E4C,LTO-OFF-6BA7E79C,yes,online_and_walk_in,no,2 hours 11 minutes (walk-in),PHP 585,https://lto.gov.ph/,2026-10-28
+SL-A841DDC7,LTO-SVC-ED2AD0B5,LTO-OFF-6BA7E79C,yes,online_and_walk_in,no,1 hour 53 minutes (walk-in),PHP 250 (student permit fee PHP 150; application fee PHP 100),https://lto.gov.ph/,2026-10-28
+SL-1D07C6FF,COMELEC-SVC-EA64DC28,COMELEC-OFF-B776FC43,yes,walk_in,no,,No fee. Application forms are free of charge at the Office of the Election Officer.,https://www.comelec.gov.ph/?r=VoterRegistration/RegistrationProcedures,2026-10-28
+SL-C1F958F0,SSS-SVC-6DA76B7B,SSS-OFF-C06CA6B3,yes,online,no,,,https://www.sss.gov.ph/become-an-sss-member/,2026-10-28
+SL-94CD2F38,PHILSYS-SVC-EAA2BF41,PHILSYS-OFF-57B80507,yes,walk-in,no,,,https://rsso11.psa.gov.ph/content/press-release-national-id-registration-and-other-national-id-services-continue-davao-del,2026-10-28
+SL-7AC67290,NBI-SVC-33D4FC9A,NBI-OFF-01374019,yes,online_and_walk_in,no,1.5 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/nbi-clearance-offices/,2026-10-28
+SL-10EFD998,NBI-SVC-33D4FC9A,NBI-OFF-B558C709,yes,online_and_walk_in,no,1.5 mins.,P115.00; P165.00; P415.00,https://nbi.gov.ph/nbi-clearance-offices/,2026-10-28
+SL-9C5A5E07,PRC-SVC-105C493B,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450.00 - conditioned/removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-DFAA2AE0,PRC-SVC-2F82DA50,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,PSA Birth Certificate PSA Marriage Contract (for married female applicants) Transcript of Records with scanned picture and Remarks “For Board Examination Purposes” Valid NBI Clearance (First Timers & Repeaters) Payment: P900 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-5399CF72,PRC-SVC-90E1C9D5,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-215A3330,PRC-SVC-9BCD02CD,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete P450.00 – conditioned/removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-C6570178,PRC-SVC-EFF844C9,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-8D6C5C39,PRC-SVC-DAF8C3E6,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,PSA Marriage Contract (for married female applicants) Valid NBI Clearance Payment: P600.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-5DA64DAD,PRC-SVC-D9E5D0F1,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-FC64E811,PRC-SVC-2E339839,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-60641C04,PRC-SVC-448B212A,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-D9F86A21,PRC-SVC-0DC623CD,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,PSA Marriage Contract (for married female applicants) Valid NBI Clearance Two (2) Good Moral Character Certificates for Repeaters Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-BDFFB3C4,PRC-SVC-63FC35FE,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-937CD86D,PRC-SVC-CF490077,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-D9056D2A,PRC-SVC-C008D9C6,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"Payment: P1,000.00 – written and practical",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-F112BA73,PRC-SVC-D8523484,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"Payment: P1,000.00 – written and practical",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-C753ECEF,PRC-SVC-C2243DA3,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"Payment:Php. 1, 300.00",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-AF3809D7,PRC-SVC-657D21B7,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450 – conditioned/removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-FE1D2FAA,PRC-SVC-94CA16EC,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P600,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-F6AE495F,PRC-SVC-BF16F3AD,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-60C11240,PRC-SVC-1D4AA6F1,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450.00 – conditioned/removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-0D03B27E,PRC-SVC-6659DBA4,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-9D281DAC,PRC-SVC-8268F497,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-2AF07072,PRC-SVC-D9C57F20,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"PSA Birth Certificate PSA Marriage Contract (for married female applicants) TOR with scanned picture and Remarks “For Board Examination Purposes” (First Timers and Repeaters) After three (3) failures, applicants may be allowed to take the examination only after the lapse of one (1) year from the date of last examination – FTB Payment: P900.00 – complete P450.00 – conditioned/removal",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-EC06AE9D,PRC-SVC-BE7519E4,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-8C1ED2B6,PRC-SVC-00A84F62,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-31638E88,PRC-SVC-17DCE7C2,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-78BF88FE,PRC-SVC-B3206CE9,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-C756F732,PRC-SVC-3E0B2248,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-1F4F6B7B,PRC-SVC-22D03E10,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P600.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-F801E7EB,PRC-SVC-29E1DDD0,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"PSA Marriage Contract (for married female applicants) Valid NBI Clearance Payment: P900.00 – complete *After three (3) failures, REST one (1) year",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-8ED889E4,PRC-SVC-7F1655C6,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-3E8F93A7,PRC-SVC-E75DBA31,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-6B373CE0,PRC-SVC-40094413,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Examination Fee: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-2445ACAC,PRC-SVC-9ED525A8,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P600.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-C22D22CD,PRC-SVC-1D353DEF,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-E8CC24D6,PRC-SVC-EDF71EA4,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-92F8D073,PRC-SVC-AAF98E15,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-AA83B3F2,PRC-SVC-FA03B61E,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450.00 – conditioned / removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-856DC117,PRC-SVC-E23B8068,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-33B21B99,PRC-SVC-2F33B49F,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,"Payment: P1,500.00 *Original & photo copy of Board Certificate & Professional License as Optometrist",https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-6182095B,PRC-SVC-702CA54A,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-16B10F97,PRC-SVC-78E47BCB,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-91D0E705,PRC-SVC-32900DAE,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-0EDF2352,PRC-SVC-30C07A76,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-4A349579,PRC-SVC-541039B8,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-9576D7F6,PRC-SVC-2AF77166,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-27CFCF6A,PRC-SVC-1BC4629B,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450.00 – conditional / removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-48323D9A,PRC-SVC-EF6354FC,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-16DD5772,PRC-SVC-0FFD4A81,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-DF4EEA67,PRC-SVC-45AC399A,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-D74D6555,PRC-SVC-5B9E1419,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete P450.00 – removal / conditioned,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-334DD278,PRC-SVC-13F2A8EB,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-798F4DF1,PRC-SVC-81B81EEC,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: P900.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-323054A8,PRC-SVC-A0ABC620,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-A1B7BDAA,PRC-SVC-9EFA8ED0,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,Payment: 900 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-B81CEEAC,PRC-SVC-B88372A9,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-47F7988B,PRC-SVC-DE09C428,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P450.00 – conditioned/removal,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-729E6705,PRC-SVC-16EBFBEF,PRC-OFF-0832FC0C,yes,online_and_walk_in,unknown,,P600.00 – complete,https://www.prc.gov.ph/regional-offices-contact-information,2026-10-28
+SL-05CE6A1C,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-1EB16BDF,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/about_us/directory/,2026-10-28
+SL-C5536441,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-E23E5367,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/about_us/directory/,2026-10-28
+SL-D2A165DF,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-C270317A,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/about_us/directory/,2026-10-28
+SL-E962B3AA,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-D89ACA15,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/about_us/directory/,2026-10-28
+SL-5DD38DE8,PHILHEALTH-SVC-A57622F2,PHILHEALTH-OFF-65B92ADA,yes,employer_mediated,no,,,https://www.philhealth.gov.ph/about_us/directory/,2026-10-28
+SL-7793305D,DTI-SVC-411CD26C,DTI-OFF-D11D9798,yes,online,no,,"PHP 200 (barangay), PHP 500 (city/municipality), PHP 1,000 (regional), or PHP 2,000 (national), plus PHP 30 documentary stamp tax. Late filing adds 50% of the registration fee.",https://www.dti.gov.ph/dti-regions/dti-region-11,2026-10-28
+SL-123ED906,DFA-SVC-6742AEB4,DFA-OFF-FFC2C19A,yes,online_appointment_and_walk_in,yes,,,https://consular.dfa.gov.ph/directory,2026-10-28
+SL-91D5BB04,DFA-SVC-B0F910E4,DFA-OFF-FFC2C19A,yes,,unknown,,,https://consular.dfa.gov.ph/directory,2026-10-28
+SL-0362C186,DFA-SVC-A8011093,DFA-OFF-FFC2C19A,yes,,unknown,,,https://consular.dfa.gov.ph/directory,2026-10-28
+SL-FF5CE800,DFA-SVC-A0347824,DFA-OFF-FFC2C19A,yes,,unknown,,,https://consular.dfa.gov.ph/directory,2026-10-28
+SL-89928EEE,DFA-SVC-A7271C39,DFA-OFF-FFC2C19A,yes,,unknown,,,https://consular.dfa.gov.ph/directory,2026-10-28
+SL-08849D73,DFA-SVC-564BD973,DFA-OFF-FFC2C19A,yes,,unknown,,,https://consular.dfa.gov.ph/directory,2026-10-28

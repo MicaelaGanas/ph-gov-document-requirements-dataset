@@ -18,10 +18,10 @@ def mine_cooccurring_documents(
     *,
     min_support: int = 2,
 ) -> list[tuple[str, str, int]]:
-    """Return document pairs that co-occur as requirements for the same service."""
+    """Return jointly required document pairs. Alternatives and conditionals stay out of this basket."""
     by_service: defaultdict[str, set[str]] = defaultdict(set)
     for row in dependencies:
-        if row.get("relationship_type") not in {"required", "conditional", "alternative"}:
+        if row.get("relationship_type") != "required":
             continue
         doc = (row.get("required_document_normalized") or row.get("required_document") or "").strip()
         if not doc:
@@ -46,4 +46,13 @@ def run_analysis(final_dir: Path, output_dir: Path, min_support: int = 2) -> Pat
         writer = csv.writer(handle)
         writer.writerow(["document_a", "document_b", "co_occurrence_count"])
         writer.writerows(pairs)
+
+    from mining.spmf_runner import run_primary_matrix
+
+    run_primary_matrix(final_dir, output_dir, min_support_count=min_support)
     return out_path
+
+
+if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    print(run_analysis(root / "data" / "final", root / "output"))

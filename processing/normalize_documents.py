@@ -50,6 +50,11 @@ AGENCY_ACRONYMS: dict[str, str] = {
 
 def normalize_document_name(text: str) -> str:
     """Return a canonical short label when recognized; otherwise cleaned original."""
+    from processing.requirement_preparation import canonicalize_document
+
+    canonical = canonicalize_document(text)
+    if canonical:
+        return canonical
     cleaned = clean_text(text)
     if not cleaned:
         return ""
@@ -63,14 +68,24 @@ def normalize_document_name(text: str) -> str:
     lower = re.sub(r"\s+on security paper.*$", "", lower)
     lower = re.sub(r"[.;,]+$", "", lower).strip()
 
+    matched = []
     for key, canonical in DOCUMENT_ALIASES.items():
         if key in lower or lower.startswith(key):
-            return canonical
+            if canonical not in matched:
+                matched.append(canonical)
+    compound_option = (matched and re.search(r"\band\b", lower)) or (
+        "license" in lower and "permit" in lower and re.search(r"\bor\b", lower)
+    )
+    if len(matched) > 1 or compound_option:
+        if len(cleaned) <= 180:
+            return cleaned.strip(" ;,")
+        return cleaned[:180].strip(" ;,") + "..."
+    if len(matched) == 1:
+        return matched[0]
 
-    # Title-case short names; keep long official strings trimmed.
-    if len(cleaned) <= 80:
+    if len(cleaned) <= 180:
         return cleaned.strip(" ;,")
-    return cleaned[:120].strip(" ;,") + "..."
+    return cleaned[:180].strip(" ;,") + "..."
 
 
 def normalize_agency_acronym(agency: str, agency_code: str = "") -> str:

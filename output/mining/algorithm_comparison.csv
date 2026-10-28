@@ -1,0 +1,4 @@
+algorithm,frequent_itemset_count,run_1_ms,run_2_ms,run_3_ms,median_ms,jaccard_with_apriori,jaccard_with_fpgrowth,jaccard_with_eclat,itemsets_identical
+Apriori,181,9.791,11.832,10.755,10.755,1.0000000000,1.0000000000,1.0000000000,yes
+FP-Growth,181,12.190,9.882,10.036,10.036,1.0000000000,1.0000000000,1.0000000000,yes
+Eclat,181,22.626,8.710,8.940,8.940,1.0000000000,1.0000000000,1.0000000000,yes

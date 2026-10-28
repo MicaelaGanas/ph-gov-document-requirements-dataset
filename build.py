@@ -54,6 +54,16 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip association rule mining output",
     )
+    parser.add_argument(
+        "--skip-offices",
+        action="store_true",
+        help="Skip Davao office geocoding and image enrichment",
+    )
+    parser.add_argument(
+        "--offices-only",
+        action="store_true",
+        help="Only run Davao office scrape, geocode, and image download",
+    )
     parser.add_argument("-v", "--verbose", action="store_true")
     return parser.parse_args()
 
@@ -74,6 +84,12 @@ def main() -> int:
     CLEANED_DIR.mkdir(parents=True, exist_ok=True)
     FINAL_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    if args.offices_only:
+        from processing.enrich_offices import run_davao_office_pipeline
+
+        run_davao_office_pipeline(FINAL_DIR / "government_offices.csv")
+        return 0
 
     raw_path = RAW_DIR / "gov_requirements.csv"
     cleaned_path = CLEANED_DIR / "gov_requirements.csv"
@@ -96,6 +112,13 @@ def main() -> int:
     dataset = build_normalized_dataset(cleaned)
     counts = write_dataset_csvs(dataset, FINAL_DIR)
     ok = print_validation_report(FINAL_DIR, counts)
+
+    if not args.skip_offices:
+        from processing.enrich_offices import run_davao_office_pipeline
+
+        merged_offices = run_davao_office_pipeline(FINAL_DIR / "government_offices.csv")
+        counts["government_offices.csv"] = len(merged_offices)
+        logging.info("Updated government_offices.csv with %d rows (Davao enriched)", len(merged_offices))
 
     if not args.skip_mining:
         from mining.association_analysis import run_analysis

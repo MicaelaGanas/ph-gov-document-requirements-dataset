@@ -1,12 +1,36 @@
-"""PRC licensure examination / registration requirements."""
+"""PRC licensure requirements, one service per profession."""
 
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass, field
 
 from scraper.base import BaseScraper
 from scraper.parsers.generic import clean_text, find_main_content, soup_from_html
-from scraper.parsers.requirements import infer_requirement_role, split_compound_requirement
+
+_SECTION_LABELS = {
+    "first timer",
+    "first-timer",
+    "first timers",
+    "first time applicants",
+    "repeater",
+    "repeaters",
+    "payment",
+    "documentary requirements",
+    "documentary",
+    "requirements",
+    "special requirements",
+    "educational qualification",
+    "general",
+}
+
+
+@dataclass
+class PendingItem:
+    name: str
+    role: str
+    sections: set[str] = field(default_factory=set)
+    extra_condition: str = ""
 
 
 class PRCScraper(BaseScraper):
@@ -19,7 +43,7 @@ class PRCScraper(BaseScraper):
         result = self.fetch(self.LIST_URL)
         if not result.ok:
             self.add_blocked_notice(
-                service_name="Professional Licensure / Registration",
+                service_name="Professional Licensure",
                 source_url=self.LIST_URL,
                 reason=result.error or "fetch failed",
             )
@@ -27,109 +51,154 @@ class PRCScraper(BaseScraper):
 
         soup = soup_from_html(result.html)
         root = find_main_content(soup)
-        current_profession = ""
-        order = 0
-        skip_general = False
+        profession = ""
+        section = ""
+        pending: dict[str, PendingItem] = {}
+        fee = ""
 
-        for element in root.find_all(["p", "li", "strong", "b", "h3", "h4", "h5"]):
-            if element.name in {"h3", "h4", "h5", "strong", "b"}:
-                text = clean_text(element.get_text())
-                if text and len(text) < 120:
-                    if _is_profession_heading(text):
-                        current_profession = text
-                        skip_general = True
+        def flush() -> None:
+            nonlocal fee
+            if profession:
+                self._flush_profession(profession, pending, fee)
+            pending.clear()
+            fee = ""
+
+        for element in root.find_all(["p", "li", "strong", "b", "h3", "h4"]):
+            if element.name in {"strong", "b"} and element.find_parent(["strong", "b", "p", "li"]):
+                if element.find_parent(["p", "li"]):
+                    continue
+            text = clean_text(element.get_text(" ", strip=True))
+            if not text or text in {"*", "List of Requirements"}:
                 continue
-
-            if element.name == "p":
-                text = clean_text(element.get_text(" ", strip=True))
-                if not text:
-                    continue
-                if "documentary requirements" in text.lower():
-                    current_profession = text.split(":")[0].strip() or current_profession
-                    continue
-                if skip_general and current_profession.lower() == "general":
-                    continue
-                if _is_compound_blob(text):
-                    for part in split_compound_requirement(text):
-                        if _looks_like_requirement(part):
-                            order += 1
-                            self._add_requirement(current_profession, part, order)
-                    continue
-                if _looks_like_requirement(text):
-                    order += 1
-                    self._add_requirement(current_profession, text, order)
+            if element.name in {"strong", "b", "h3", "h4"} and _is_profession_heading(text):
+                flush()
+                profession = text.rstrip(":").strip()
+                section = ""
                 continue
-
-            if element.name == "li":
-                text = clean_text(element.get_text(" ", strip=True))
-                if not text or len(text) < 4:
-                    continue
-                if skip_general and not current_profession:
-                    continue
-                order += 1
-                self._add_requirement(current_profession or "Unspecified Profession", text, order)
-
+            kind = _section_kind(text)
+            if kind:
+                section = kind
+                continue
+            if not profession:
+                continue
+            if _is_fee(text):
+                fee = text
+                continue
+            if not _looks_like_requirement(text):
+                continue
+            key = " ".join(text.lower().split())[:180]
+            item = pending.get(key)
+            if item is None:
+                item = PendingItem(
+                    name=text,
+                    role=_requirement_role(text),
+                    extra_condition=_extra_condition(text),
+                )
+                pending[key] = item
+            if section:
+                item.sections.add(section)
+        flush()
+        if not self._records:
+            self.add_blocked_notice(
+                service_name="Professional Licensure",
+                source_url=self.LIST_URL,
+                reason="The requirements page did not yield profession checklists",
+            )
         return self.records()
 
-    def _add_requirement(self, profession: str, text: str, order: int) -> None:
-        conditional = "yes" if re.match(r"for foreign", text, re.I) else "no"
-        condition = "Foreign national applicant" if conditional == "yes" else ""
-        role = infer_requirement_role(text, section=profession)
-        if "nbi clearance" in text.lower():
-            role = "required_document"
-        elif "birth certificate" in text.lower() or "transcript" in text.lower() or "diploma" in text.lower():
-            role = "required_document"
-        elif " passport" in text.lower() and "copy of passport" in text.lower():
-            role = "required_document"
-
-        self.add(
-            service_name=f"PRC Licensure - {profession[:80]}",
-            service_category="Professional Regulation",
-            target_document="Professional License / Board Exam Application",
-            transaction_type="examination_application|registration",
-            applicant_type="Local graduate|Foreign graduate",
-            requirement_name=text,
-            source_url=self.LIST_URL,
-            requirement_role=role,
-            conditional=conditional,
-            condition=condition,
-            issuing_agency="School|PSA|NBI|Various",
-            application_method="online_and_walk_in",
-            appointment_required="unknown",
-            source_section=profession,
-            requirement_order=order,
-        )
+    def _flush_profession(self, profession: str, pending: dict[str, PendingItem], fee: str) -> None:
+        order = 0
+        for item in pending.values():
+            order += 1
+            conditions = []
+            if item.extra_condition:
+                conditions.append(item.extra_condition)
+            if item.sections == {"first_timer"}:
+                conditions.append("First-time applicant")
+            elif item.sections == {"repeater"}:
+                conditions.append("Repeater")
+            condition = ". ".join(conditions)
+            self.add(
+                service_name=f"PRC Licensure - {profession}",
+                service_category="Professional Regulation",
+                target_document=f"{profession} professional license",
+                transaction_type="examination_application",
+                applicant_type="Board examination applicant",
+                requirement_name=item.name,
+                source_url=self.LIST_URL,
+                requirement_role=item.role,
+                conditional="yes" if condition else "no",
+                condition=condition,
+                issuing_agency=_issuer(item.name),
+                application_method="online_and_walk_in",
+                appointment_required="unknown",
+                source_section=profession,
+                requirement_order=order,
+            )
+        if fee:
+            self.add(
+                service_name=f"PRC Licensure - {profession}",
+                service_category="Professional Regulation",
+                target_document=f"{profession} professional license",
+                transaction_type="examination_application",
+                applicant_type="Board examination applicant",
+                requirement_name=fee,
+                source_url=self.LIST_URL,
+                requirement_role="fee",
+                fee=fee,
+                application_method="online_and_walk_in",
+                appointment_required="unknown",
+                source_section=profession,
+                requirement_order=len(pending) + 1,
+            )
 
 
 def _is_profession_heading(text: str) -> bool:
+    stripped = text.strip()
+    if not stripped or stripped.endswith(":") or len(stripped) > 70:
+        return False
+    lower = stripped.lower()
+    if lower in _SECTION_LABELS:
+        return False
+    if any(
+        phrase in lower
+        for phrase in (
+            "applicant",
+            "submit",
+            "failure",
+            "payment",
+            "fee",
+            "document",
+            "certificate",
+            "clearance",
+            "transcript",
+        )
+    ):
+        return False
+    words = stripped.split()
+    return 1 <= len(words) <= 6 and stripped[:1].isupper()
+
+
+def _section_kind(text: str) -> str:
+    lower = text.strip().rstrip(":").strip().lower()
+    if lower in {"first timer", "first-timer", "first timers", "first time applicants"}:
+        return "first_timer"
+    if lower in {"repeater", "repeaters"}:
+        return "repeater"
+    return ""
+
+
+def _is_fee(text: str) -> bool:
     lower = text.lower()
-    keywords = (
-        "engineering",
-        "nurse",
-        "medicine",
-        "accountancy",
-        "architecture",
-        "education",
-        "examination",
-        "licensure",
-        "board",
-        "technology",
-        "agricultural",
-        "aeronautic",
-    )
-    return any(k in lower for k in keywords)
-
-
-def _is_compound_blob(text: str) -> bool:
-    return len(text) > 180 and (
-        text.count("Certificate") > 1
-        or text.count("Transcript") > 0 and text.count("Clearance") > 0
-        or "Payment:" in text
-    )
+    return lower.startswith("payment") or bool(re.search(r"\bp\s*\d", lower))
 
 
 def _looks_like_requirement(text: str) -> bool:
     lower = text.lower()
+    if lower.rstrip(":") in _SECTION_LABELS or _section_kind(text):
+        return False
+    if "other documents that the board" in lower:
+        return False
     keywords = (
         "certificate",
         "transcript",
@@ -137,12 +206,38 @@ def _looks_like_requirement(text: str) -> bool:
         "nbi",
         "birth",
         "passport",
-        "document",
         "clearance",
-        "form",
-        "notarized",
+        "tor",
         "marriage",
-        "payment",
-        "id",
+        "thesis",
+        "good moral",
+        "refresher",
     )
-    return any(k in lower for k in keywords) and len(text) < 600
+    return any(keyword in lower for keyword in keywords) and len(text) < 400
+
+
+def _requirement_role(text: str) -> str:
+    lower = text.lower()
+    if "refresher" in lower or "failure" in lower:
+        return "eligibility"
+    return "required_document"
+
+
+def _extra_condition(text: str) -> str:
+    lower = text.lower()
+    if "married female" in lower:
+        return "Married female applicant"
+    if "foreign" in lower:
+        return "Foreign applicant"
+    return ""
+
+
+def _issuer(text: str) -> str:
+    lower = text.lower()
+    if "nbi" in lower:
+        return "NBI"
+    if "psa" in lower or "birth" in lower or "marriage" in lower:
+        return "PSA"
+    if "transcript" in lower or "diploma" in lower or "tor" in lower:
+        return "School"
+    return ""

@@ -5,3 +5,4 @@ cloudscraper>=1.2.71
 PyYAML>=6.0.0
 playwright>=1.40.0
 pandas>=2.1.0
+pypdf>=5.0.0

@@ -1,0 +1,33 @@
+Primary transaction matrix
+One service is one basket. Only document_dependencies.csv rows with relationship_type = required are included.
+A document listed more than once on the same service is stored once in that basket.
+Alternative and conditional rows are stored in the dependency table and are not items in this matrix.
+The sensitivity matrix (one transaction per alternative group) is not part of this run.
+
+Dependency rows: 543
+Required rows: 337
+Alternative rows: 133
+Conditional rows: 50
+Services in the matrix (N): 63
+Distinct documents: 136
+Documents with support count >= 2: 15
+Basket size min / median / max: 1 / 4 / 26
+
+Thresholds locked before rule generation
+Minimum support count: 2
+Minimum support ratio passed through SPMF: 0.031746031746031744
+SPMF converts that ratio with ceil(ratio * N). The launcher adjusts the double so the absolute count is exact.
+Minimum confidence: 0.5
+Lift is not an input. lift = confidence / support(consequent) = (support count of X union Y) * N / (support count of X * support count of Y).
+A rule is every split of a frequent itemset into a non-empty antecedent and a non-empty consequent whose confidence meets the minimum.
+
+Algorithms
+Apriori, FP-Growth, and Eclat were called from mining/lib/spmf.jar (SPMF 2.12.1, ca.pfv.spmf).
+Each algorithm read the same file, primary_transactions.spmf, and the same minimum support.
+The recorded time is the median of three runs, measured around the SPMF call in nanoseconds and reported in milliseconds.
+Frequent-itemset collections were compared before any rule was written. A difference stops the run.
+Support in the tables was recounted from the Python transactions and matched the SPMF #SUP values.
+
+Frequent itemsets: 181
+Rules at or above minimum confidence: 1514
+Rules with lift greater than 1: 1514

@@ -1,0 +1,10 @@
+spmf.jar is SPMF 2.12.1 (ca.pfv.spmf).
+Built from https://github.com/matfax/spmf tag v2.12.1 and obtained from JitPack
+as com.github.matfax:spmf:v2.12.1.
+Copyright Philippe Fournier-Viger and contributors.
+Licensed under the GNU General Public License version 3.
+
+SpmfItemsetRun.class calls AlgoApriori, AlgoFPGrowth, and AlgoEclat in that jar.
+Its source is mining/spmf_launch/SpmfItemsetRun.java.
+This SPMF build opens the input file with ClassLoader.getResourceAsStream,
+so the runner places primary_transactions.spmf on the classpath.

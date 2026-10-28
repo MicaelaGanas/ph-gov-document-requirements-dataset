@@ -1,0 +1,9 @@
+Apriori run 1: 181 itemsets, 9.791 ms
+Apriori run 2: 181 itemsets, 11.832 ms
+Apriori run 3: 181 itemsets, 10.755 ms
+FPGrowth run 1: 181 itemsets, 12.190 ms
+FPGrowth run 2: 181 itemsets, 9.882 ms
+FPGrowth run 3: 181 itemsets, 10.036 ms
+Eclat run 1: 181 itemsets, 22.626 ms
+Eclat run 2: 181 itemsets, 8.710 ms
+Eclat run 3: 181 itemsets, 8.940 ms

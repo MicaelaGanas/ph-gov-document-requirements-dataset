@@ -14,11 +14,20 @@ agencies:
   psa:
     name: Philippine Statistics Authority
     code: PSA
+    notes: psa.gov.ph returns a Cloudflare challenge to automated fetches. The scraper reads each certificate page; a blocked fetch keeps a reading of that page.
     services:
-      - name: Civil Registration
+      - name: Certificate of Live Birth
         urls:
-          - https://psa.gov.ph/civilregistration
-        notes: Cloudflare-protected; may require browser automation
+          - https://psa.gov.ph/birth-certificate
+      - name: Certificate of Marriage
+        urls:
+          - https://psa.gov.ph/marriage-certificate
+      - name: Certificate of Death
+        urls:
+          - https://psa.gov.ph/death-certificate
+      - name: Certificate of No Marriage (CENOMAR)
+        urls:
+          - https://psa.gov.ph/cenomar
 
   dfa:
     name: Department of Foreign Affairs
@@ -27,7 +36,25 @@ agencies:
       - name: Passport Application (Adult New)
         urls:
           - https://consular.dfa.gov.ph/passport/10-passport/61-passport-requirements-new-adult
+      - name: Passport Application (Adult Renewal - ePassport)
+        urls:
+          - https://consular.dfa.gov.ph/adult-renewal-epassport/
+      - name: Passport Application (Adult Renewal - non-ePassport)
+        urls:
+          - https://consular.dfa.gov.ph/adult-renewal-non-epassport/
+      - name: Passport Application (Minor New)
+        urls:
+          - https://consular.dfa.gov.ph/minor-new/
+      - name: Passport Application (Minor Renewal - ePassport)
+        urls:
+          - https://consular.dfa.gov.ph/minor-renewal-epassport/
+      - name: Passport Application (Minor Renewal - non-ePassport)
+        urls:
+          - https://consular.dfa.gov.ph/minor-renewal-non-epassport/
+      - name: Acceptable IDs (all passport types)
+        urls:
           - https://consular.dfa.gov.ph/valid-ids-for-passport-application/
+        notes: Lost/mutilated passport requirements are conditional sections on renewal pages
         notes: Consular requirements only; FAQ page excluded from document extraction
 
   nbi:
@@ -42,11 +69,17 @@ agencies:
   lto:
     name: Land Transportation Office
     code: LTO
+    notes: Checklists are the walk-in services in the 2025 Citizen's Charter PDF. The HTML site is Cloudflare-protected.
     services:
-      - name: Driver's License
+      - name: Student-Driver's Permit
         urls:
-          - https://lto.gov.ph/
-        notes: Cloudflare-protected
+          - https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf
+      - name: New Driver's License (Non-Professional)
+        urls:
+          - https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf
+      - name: Plain or Advance Renewal of Driver's License
+        urls:
+          - https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf
 
   prc:
     name: Professional Regulation Commission
@@ -59,19 +92,24 @@ agencies:
   comelec:
     name: Commission on Elections
     code: COMELEC
+    notes: The public route is a JavaScript shell. The requirements text is the HTML fragment that route loads.
     services:
       - name: Voter Registration
         urls:
-          - https://www.comelec.gov.ph/
-        notes: Content loaded via JavaScript
+          - https://www.comelec.gov.ph/?r=VoterRegistration/WhatisVoterRegistration/RegistrationRequirements
+          - https://www.comelec.gov.ph/html-tpls/VoterRegistration/WhatisVoterRegistration/RegistrationRequirements.html
+          - https://www.comelec.gov.ph/?r=VoterRegistration/WhatisVoterRegistration/RegistrationProcedures
 
   dti:
     name: Department of Trade and Industry
     code: DTI
+    notes: The BNRS landing page is not the checklist. Identity documents are Annex A. Fees, representative filing, and foreign-national conditions are the BNRS FAQ.
     services:
       - name: Business Name Registration
         urls:
-          - https://bnrs.dti.gov.ph/
+          - https://bnrs.dti.gov.ph/faq
+          - https://bnrs.dti.gov.ph/resources/download
+          - https://dtibnrs.s3-ap-southeast-1.amazonaws.com/files/20230629/n1xa3vwmok1513.pdf
 
   sss:
     name: Social Security System
@@ -101,15 +139,18 @@ agencies:
   gsis:
     name: Government Service Insurance System
     code: GSIS
+    notes: The homepage is not the checklist. UMID eCard enrollment is read from the Citizen's Charter PDF.
     services:
-      - name: Member Services / Forms
+      - name: UMID eCard Enrollment
         urls:
-          - https://www.gsis.gov.ph/
+          - https://www.gsis.gov.ph/downloads/publications/20250328-Consolidated_2025-GSIS-Citizens_Charter_External-Services_2025_7th%20Edition.pdf
 
   davao:
     name: Davao City LGU
     code: LGU-DAVAO
     services:
-      - name: Business Permit Processing
+      - name: Business Permit
         urls:
           - https://davaocity.gov.ph/services/processing-of-business-permits/
+          - https://davaocity.gov.ph/wp-content/uploads/2019/01/Processing-of-Business-Permit.jpg
+          - https://davaocity.gov.ph/wp-content/uploads/2021/10/new-application-of-business-permit-2-1024x614.gif

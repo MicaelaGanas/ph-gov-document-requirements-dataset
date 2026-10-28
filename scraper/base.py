@@ -38,14 +38,46 @@ class BaseScraper(ABC):
     def scrape(self) -> list[RequirementRecord]:
         raise NotImplementedError
 
-    def fetch(self, url: str, *, use_browser: bool = False) -> FetchResult:
+    def fetch(
+        self,
+        url: str,
+        *,
+        use_browser: bool = False,
+        spa: bool = False,
+    ) -> FetchResult:
         from scraper import config
 
         return fetch_page(
             url,
             use_browser=use_browser or config.USE_BROWSER,
             browser_fallback=config.BROWSER_FALLBACK,
+            spa=spa,
         )
+
+    def fetch_requirements_page(
+        self,
+        url: str,
+        *,
+        spa: bool = False,
+    ) -> FetchResult:
+        """Fetch and, if the page looks like an empty SPA shell, retry with the browser."""
+        from scraper.parsers.generic import page_has_requirement_content
+
+        result = self.fetch(url, spa=spa)
+        if result.ok and page_has_requirement_content(result.html):
+            return result
+        if result.ok and not page_has_requirement_content(result.html):
+            browser_result = self.fetch(url, use_browser=True, spa=True)
+            if browser_result.ok and page_has_requirement_content(browser_result.html):
+                return browser_result
+            return browser_result if browser_result.ok else result
+        from scraper import config
+
+        if not result.ok and config.BROWSER_FALLBACK:
+            browser_result = self.fetch(url, use_browser=True, spa=spa)
+            if browser_result.ok:
+                return browser_result
+        return result
 
     def add(
         self,
@@ -168,9 +200,11 @@ def records_from_list_items(
             continue
         heading = ul.find_previous(["h1", "h2", "h3", "h4", "h5", "strong"])
         section = clean_text(heading.get_text()) if heading else ""
+        from scraper.parsers.generic import is_likely_navigation_item
+
         for li in items:
             text = clean_text(li.get_text(" ", strip=True))
-            if not text or len(text) < 3:
+            if not text or len(text) < 3 or is_likely_navigation_item(text):
                 continue
             order += 1
             role = requirement_role or infer_requirement_role(text, section=section)

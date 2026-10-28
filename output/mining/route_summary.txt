@@ -1,0 +1,38 @@
+Office routes
+Built on: 2026-10-29
+Locality: Davao City
+Source rules: output/mining/rules_charter_confirmed.csv
+
+Each confirmed rule has one sequence. Antecedent documents come before consequent documents.
+The last stop is PRC Regional Office XI, which receives the licensure application.
+Documents in the same group are not ordered against each other.
+A road leg is an OpenStreetMap driving route and is drawn only when both offices already have coordinates.
+The driving time is travel between offices. It is not waiting time inside an office.
+
+Routes: 454
+  every applicant: 36
+  married applicant: 42
+  foreign applicant: 376
+Stops: 2344
+Legs: 3415
+  road: 1214
+  same office: 20
+  unlocated: 2181
+
+Documents with no office in the table: Certificate of Good Moral Character to be issued by any of the following: employer, school/college/university or any competent authority acceptable to the Board; and; College Diploma; One (1) Certificate of Good Moral Character from any of the following:; Other requirements that the Board may prescribe (e.g. CHED Certificate of equivalency); Transcript of Records (TOR)
+
+Measured driving legs in Davao:
+  DFA Consular Office Davao → SEMRO – Davao City: 5.7 km, 13 minutes
+  DFA Consular Office Davao → ONESTOPSHOP – DAVAO: 5.0 km, 12 minutes
+  DFA Consular Office Davao → PRC Regional Office XI: 0.6 km, 2 minutes
+  DFA Consular Office Davao → PSA Davao CRS Outlet: 7.2 km, 17 minutes
+  SEMRO – Davao City → DFA Consular Office Davao: 6.7 km, 16 minutes
+  SEMRO – Davao City → PRC Regional Office XI: 5.3 km, 13 minutes
+  SEMRO – Davao City → PSA Davao CRS Outlet: 1.9 km, 5 minutes
+  ONESTOPSHOP – DAVAO → DFA Consular Office Davao: 7.3 km, 14 minutes
+  ONESTOPSHOP – DAVAO → PRC Regional Office XI: 4.7 km, 11 minutes
+  ONESTOPSHOP – DAVAO → PSA Davao CRS Outlet: 2.3 km, 6 minutes
+  PSA Davao CRS Outlet → DFA Consular Office Davao: 9.2 km, 18 minutes
+  PSA Davao CRS Outlet → SEMRO – Davao City: 1.9 km, 5 minutes
+  PSA Davao CRS Outlet → ONESTOPSHOP – DAVAO: 2.6 km, 7 minutes
+  PSA Davao CRS Outlet → PRC Regional Office XI: 6.9 km, 17 minutes

@@ -53,7 +53,11 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def run_scrapers(agency_keys: list[str]) -> list[RequirementRecord]:
+def _run_scraper_loop(agency_keys: list[str]) -> list[RequirementRecord]:
+    import time
+
+    from scraper import config
+
     all_records: list[RequirementRecord] = []
     for key in agency_keys:
         scraper_cls = SCRAPER_REGISTRY[key]
@@ -65,7 +69,19 @@ def run_scrapers(agency_keys: list[str]) -> list[RequirementRecord]:
             all_records.extend(records)
         except Exception:
             logging.exception("Scraper failed for %s", key)
+        if config.REQUEST_DELAY_SEC > 0:
+            time.sleep(config.REQUEST_DELAY_SEC)
     return all_records
+
+
+def run_scrapers(agency_keys: list[str]) -> list[RequirementRecord]:
+    from scraper import config
+    from scraper.browser import browser_session_scope, playwright_installed
+
+    if playwright_installed() and (config.USE_BROWSER or config.BROWSER_FALLBACK):
+        with browser_session_scope():
+            return _run_scraper_loop(agency_keys)
+    return _run_scraper_loop(agency_keys)
 
 
 def main() -> int:

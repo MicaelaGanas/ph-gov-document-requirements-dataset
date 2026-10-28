@@ -19,16 +19,15 @@ class PhilSysScraper(BaseScraper):
         return self.records()
 
     def _scrape_supporting_documents(self) -> None:
-        result = self.fetch(self.PRIMARY_URL)
-        if not result.ok:
-            self.add_blocked_notice(
-                service_name="National ID Registration",
-                source_url=self.PRIMARY_URL,
-                reason=result.error or "fetch failed",
-            )
+        result = self.fetch_requirements_page(self.PRIMARY_URL, spa=True)
+        if result.ok and self._parse_supporting_documents(result.html):
             return
+        self._add_verified_supporting_documents(
+            result.error or "philsys.gov.ph is under maintenance"
+        )
 
-        soup = soup_from_html(result.html)
+    def _parse_supporting_documents(self, html: str) -> bool:
+        soup = soup_from_html(html)
         root = find_main_content(soup)
         order = 0
         seen_items: set[str] = set()
@@ -59,53 +58,69 @@ class PhilSysScraper(BaseScraper):
                         continue
                     seen_items.add(norm)
                     order += 1
+                    self._add_supporting_option(
+                        item.rstrip(";").strip(),
+                        current_tier,
+                        tier_title,
+                        order,
+                        scrape_status="success",
+                    )
+        return order > 0
 
-                    if current_tier == "primary":
-                        self.add(
-                            service_name="National ID Registration",
-                            service_category="Civil Registration / National ID",
-                            target_document="PhilSys National ID",
-                            transaction_type="new_registration",
-                            applicant_type="Filipino citizen or resident",
-                            requirement_name=item,
-                            source_url=self.PRIMARY_URL,
-                            requirement_role="required_document",
-                            conditional="no",
-                            condition="",
-                            notes="Primary supporting document option (registrant may bring any one complete primary set)",
-                            issuing_agency="PSA / various",
-                            application_method="walk-in",
-                            appointment_required="no",
-                            location="PSA/LGU/mall registration centers",
-                            source_section=tier_title,
-                            split_compounds=True,
-                            requirement_order=order,
-                        )
-                    else:
-                        role = (
-                            "acceptable_id"
-                            if self._is_id_like(item)
-                            else "required_document"
-                        )
-                        self.add(
-                            service_name="National ID Registration",
-                            service_category="Civil Registration / National ID",
-                            target_document="PhilSys National ID",
-                            transaction_type="new_registration",
-                            applicant_type="Filipino citizen or resident",
-                            requirement_name=item,
-                            source_url=self.PRIMARY_URL,
-                            requirement_role=role,
-                            conditional="yes",
-                            condition="If registrant has no primary supporting document",
-                            notes="Secondary/alternative supporting ID or document for PhilSys registration",
-                            issuing_agency="Various (see requirement)",
-                            application_method="walk-in",
-                            appointment_required="no",
-                            location="PSA/LGU/mall registration centers",
-                            source_section=tier_title,
-                            requirement_order=order,
-                        )
+    def _add_verified_supporting_documents(self, reason: str) -> None:
+        """Last live reading of the supporting-documents page, kept while the site is down."""
+        note = (
+            "Verified reading of https://philsys.gov.ph/supporting-documents/ from 2026-08-27. "
+            f"The live page could not be read ({reason}). "
+            "Each primary line is one option. The birth certificate and one government ID stay one option."
+        )
+        order = 0
+        for tier, items in (
+            ("primary", _PRIMARY_OPTIONS),
+            ("secondary", _SECONDARY_OPTIONS),
+        ):
+            for item in items:
+                order += 1
+                self._add_supporting_option(item, tier, tier.title() + " supporting documents", order, note)
+
+    def _add_supporting_option(
+        self,
+        item: str,
+        current_tier: str,
+        tier_title: str,
+        order: int,
+        note: str = "",
+        scrape_status: str = "partial",
+    ) -> None:
+        self.add(
+            service_name="National ID Registration",
+            service_category="Civil Registration / National ID",
+            target_document="PhilSys National ID",
+            transaction_type="new_registration",
+            applicant_type="Filipino citizen or resident",
+            requirement_name=item,
+            source_url=self.PRIMARY_URL,
+            requirement_role="acceptable_id",
+            conditional="yes",
+            condition=(
+                "Any one primary supporting document"
+                if current_tier == "primary"
+                else "No primary supporting document is available. Any one secondary document"
+            ),
+            notes=note
+            or (
+                "One complete primary option. A birth certificate paired with one government ID stays one option."
+                if current_tier == "primary"
+                else "Secondary document accepted only when the registrant has no primary supporting document."
+            ),
+            issuing_agency="Various (see requirement)",
+            application_method="walk-in",
+            appointment_required="no",
+            location="PSA/LGU/mall registration centers",
+            source_section=tier_title,
+            requirement_order=order,
+            scrape_status=scrape_status,
+        )
 
     def _scrape_registration_process(self) -> None:
         result = self.fetch(self.PROCESS_URL)
@@ -156,11 +171,48 @@ class PhilSysScraper(BaseScraper):
                     requirement_order=order,
                 )
 
-    @staticmethod
-    def _is_id_like(text: str) -> bool:
-        lower = text.lower()
-        doc_tokens = ("certificate of live birth", "report of birth", "foundling")
-        if any(t in lower for t in doc_tokens):
-            return False
-        id_tokens = (" id", "identification", "license", "passport", "clearance", " card")
-        return any(t in lower for t in id_tokens)
+
+# Last successful reading of the supporting-documents page (2026-08-27).
+# Letter-shape errors from that extract (I rendered as l) are corrected here.
+_PRIMARY_OPTIONS = (
+    "PSA-issued Certificate of Live Birth and one (1) government-issued identification document which bears a full name, front-facing photograph, and signature or thumb mark",
+    "Philippine Passport or ePassport issued by the Department of Foreign Affairs (DFA)",
+    "Unified Multi-purpose Identification (UMID) Card issued by the Government Service Insurance System (GSIS) or Social Security System (SSS)",
+    "Student's License Permit or Non-Professional/Professional Driver's License issued by the LTO",
+)
+
+_SECONDARY_OPTIONS = (
+    "PSA-issued Certificate of Live Birth or National Statistics Office (NSO)-issued Certificate of Live Birth with Birth Reference Number (BreN)",
+    "Local Civil Registry Office (LCRO)-issued Certificate of Live Birth",
+    "PSA-issued Report of Birth",
+    "PSA-issued Certificate of Foundling",
+    "Integrated Bar of the Philippines (IBP) Identification Card",
+    "Professional Regulatory Commission (PRC) ID",
+    "Seaman's Book (Seafarer's Record Book)",
+    "Overseas Workers Welfare Administration (OWWA) ID",
+    "Senior Citizen's ID issued by the Office of Senior Citizens Affairs (OSCA) and/or Local Government Units (LGU)",
+    "Social Security System (SSS) ID",
+    "Pantawid Pamilyang Pilipino Program (4Ps) ID",
+    "License to Own or Possess Firearms (LTOPF)",
+    "National Bureau of Investigation (NBI) Clearance",
+    "Police Clearance/ID",
+    "Solo Parent's ID",
+    "Person with Disability (PWD) ID issued by the National Council of Disability Affairs (NCDA) or its regional counterpart, Office of the Mayor, Department of Social Welfare and Development (DSWD) Office and other participating organizations with a Memorandum of Agreement with the Department of Health (DOH)",
+    "Voter's ID issued by the Commission on Elections (COMELEC)",
+    "Postal ID issued by the Philippine Postal Corporation (PhlPost)",
+    "Taxpayer Identification Number (TIN) ID",
+    "PhilHealth ID",
+    "Special Resident Retiree's Visa (SRRV) issued by the Philippine Retirement Authority (PRA)",
+    "National ID from other countries",
+    "Residence ID from other countries",
+    "Professional Identification Card issued by the Maritime Industry Authority (MARINA)",
+    "Eligibility Card issued by the Civil Service Commission",
+    "Dependent's ID issued by the Armed Forces of the Philippines (AFP) and Philippine National Police (PNP)",
+    "Employee ID",
+    "School ID (for pre-school, elementary and signature/thumbmark of the ID owner is not required)",
+    "City/Municipal ID",
+    "Barangay Clearance/Certificate",
+    "Barangay ID",
+    "Voter's Certification issued by the COMELEC, or Prison Record",
+    "Certificate of Detention",
+)

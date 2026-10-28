@@ -1,0 +1,24 @@
+Charter check
+Retrieval date: 2026-10-29
+PRC list of requirements: retrieved (https://www.prc.gov.ph/list-of-requirements)
+SSS membership page: retrieved (https://www.sss.gov.ph/become-an-sss-member/)
+LTO citizen's charter PDF: not retrieved, HTTP 403 (https://lto.gov.ph/wp-content/uploads/2025/09/LTO-CC-2025-External-v2.pdf)
+
+A rule is confirmed when every supporting service's current page still requires the consequent whenever it requires the antecedent.
+A document qualified for married female applicants, foreign applicants, or degrees taken abroad is not treated as required of every applicant.
+Birth certificate or passport on the SSS page is an alternative, not a joint membership requirement.
+A marriage line limited to married applicants stays limited even when a repeater line omits that phrase.
+
+Rules with lift greater than 1: 1514
+Confirmed: 454
+  of which every supporting line applies to every applicant: 36
+  of which a married-applicant line is part of the rule: 42
+  of which a foreign-applicant line is part of the rule: 376
+Rejected: 1060
+  page does not require the consequent whenever the antecedent is required: 945
+  a document in the rule is not listed as its own requirement: 113
+  current page was not retrieved: 2
+Service-document rows whose page was not retrieved: 30
+
+No confirmed rule has the PSA marriage certificate as its consequent.
+The two LTO rules were rejected because the citizen's charter PDF returned HTTP 403.

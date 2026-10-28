@@ -5,11 +5,14 @@ from __future__ import annotations
 import logging
 import time
 from typing import Optional
+from urllib.parse import urlparse
 
 import cloudscraper
 import requests
 
 logger = logging.getLogger(__name__)
+
+_last_fetch_at: float = 0.0
 
 DEFAULT_HEADERS = {
     "User-Agent": (
@@ -52,15 +55,25 @@ def fetch_page(
     use_cloudscraper: bool = True,
     use_browser: bool = False,
     browser_fallback: bool = True,
+    spa: bool = False,
 ) -> FetchResult:
     """
     Fetch a page using requests/cloudscraper, optionally falling back to Playwright.
 
     Set `use_browser=True` to try Playwright first (for Cloudflare-protected sites).
     Set `browser_fallback=True` (default) to try Playwright after HTTP 403/503.
+    Set `spa=True` for JavaScript-heavy pages (longer Playwright wait).
     """
-    if use_browser:
-        result = _fetch_browser(url)
+    from scraper import config
+    from scraper.browser import host_needs_browser_first
+
+    _respect_rate_limit(config.REQUEST_DELAY_SEC)
+
+    try_browser_first = use_browser or (
+        config.USE_BROWSER and host_needs_browser_first(url)
+    )
+    if try_browser_first:
+        result = _fetch_browser(url, spa=spa)
         if result.ok:
             return result
         logger.info("Browser fetch failed for %s, trying HTTP: %s", url, result.error)
@@ -93,7 +106,7 @@ def fetch_page(
 
     if browser_fallback or use_browser:
         logger.info("HTTP failed for %s (%s), trying Playwright...", url, last_error)
-        browser_result = _fetch_browser(url)
+        browser_result = _fetch_browser(url, spa=spa)
         if browser_result.ok:
             return browser_result
         last_error = browser_result.error or last_error
@@ -102,10 +115,21 @@ def fetch_page(
     return FetchResult(url, status_code=None, error=last_error)
 
 
-def _fetch_browser(url: str) -> FetchResult:
+def _respect_rate_limit(delay_sec: float) -> None:
+    global _last_fetch_at
+    if delay_sec <= 0:
+        return
+    now = time.monotonic()
+    wait = delay_sec - (now - _last_fetch_at)
+    if wait > 0:
+        time.sleep(wait)
+    _last_fetch_at = time.monotonic()
+
+
+def _fetch_browser(url: str, *, spa: bool = False) -> FetchResult:
     from scraper.browser import fetch_with_browser
 
-    html, status, error = fetch_with_browser(url)
+    html, status, error = fetch_with_browser(url, spa=spa)
     if error:
         return FetchResult(url, html=html, status_code=status, error=error, method="playwright")
     return FetchResult(url, html, status or 200, method="playwright")
@@ -120,4 +144,10 @@ def _looks_blocked(html: str) -> bool:
         return True
     if "request rejected" in lower and len(html) < 2000:
         return True
+    if "recaptcha" in lower and len(html) < 15000:
+        return True
     return False
+
+
+def hostname(url: str) -> str:
+    return (urlparse(url).hostname or "").lower()

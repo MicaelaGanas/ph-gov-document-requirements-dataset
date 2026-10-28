@@ -18,6 +18,12 @@ from processing.id_utils import (
     make_service_location_id,
 )
 from processing.normalize_documents import normalize_agency_acronym, normalize_document_name, source_title_from_url
+from processing.requirement_preparation import (
+    canonicalize_document,
+    is_conditional_instruction,
+    is_procedure,
+    prepare_required_row,
+)
 from processing.schemas import (
     DOCUMENT_DEPENDENCIES_COLUMNS,
     GOVERNMENT_OFFICES_COLUMNS,
@@ -76,13 +82,21 @@ def build_normalized_dataset(records: Iterable[RequirementRecord]) -> Normalized
             svc["processing_time"] = svc["processing_time"] or _best_value(record.processing_time)
             svc["fee"] = svc["fee"] or _best_value(record.fee)
             svc["application_method"] = svc["application_method"] or record.application_method
-            if record.scrape_status == "success":
-                svc["scrape_status"] = "success"
+            if _STATUS_RANK.get(record.scrape_status, 0) > _STATUS_RANK.get(svc["scrape_status"], 0):
+                svc["scrape_status"] = record.scrape_status
             svc["source_url"] = record.source_url or svc["source_url"]
             svc["source_title"] = source_title_from_url(svc["source_url"])
             svc["last_verified"] = max(svc["last_verified"], record.last_verified)
 
         service_req_counts[service_key] += 1
+
+        if record.requirement_role == "required_document" and is_procedure(record.requirement_name):
+            record.requirement_role = "procedure"
+            record.requirement_type = "procedure"
+        elif record.requirement_role == "required_document" and is_conditional_instruction(record.requirement_name):
+            record.conditional = "yes"
+            if not record.condition:
+                record.condition = "Required only in the situation named in the row, not for every application."
 
         req_id = record.record_id or make_requirement_id(
             service_id,
@@ -123,10 +137,10 @@ def build_normalized_dataset(records: Iterable[RequirementRecord]) -> Normalized
             service_row=service_map[service_key],
         )
 
-        dep = _dependency_from_record(record, service_id, acronym)
-        if dep and dep["dependency_id"] not in dependency_seen:
-            dependency_seen.add(dep["dependency_id"])
-            dataset.dependencies.append(dep)
+        for dep in _dependencies_from_record(record, service_id, acronym):
+            if dep["dependency_id"] not in dependency_seen:
+                dependency_seen.add(dep["dependency_id"])
+                dataset.dependencies.append(dep)
 
     for key, svc in service_map.items():
         svc["record_count"] = service_req_counts[key]
@@ -202,11 +216,50 @@ def _maybe_add_office_and_location(
     )
 
 
+_STATUS_RANK = {"blocked": 0, "seed": 1, "partial": 2, "success": 3}
+
+
+def _dependencies_from_record(
+    record: RequirementRecord, service_id: str, acronym: str
+) -> list[dict[str, Any]]:
+    base = _dependency_from_record(record, service_id, acronym)
+    if base is None:
+        return []
+    if base["relationship_type"] != "required":
+        canonical = canonicalize_document(base["required_document"])
+        if canonical:
+            base["required_document_normalized"] = canonical
+        base["dependency_id"] = make_dependency_id(
+            service_id,
+            base["target_document"],
+            base["required_document_normalized"],
+            base["relationship_type"],
+        )
+        return [base]
+
+    prepared: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for item in prepare_required_row(base):
+        item["dependency_id"] = make_dependency_id(
+            service_id,
+            item["target_document"],
+            item["required_document_normalized"],
+            item["relationship_type"],
+        )
+        if item["dependency_id"] in seen:
+            continue
+        seen.add(item["dependency_id"])
+        prepared.append(item)
+    return prepared
+
+
 def _dependency_from_record(
     record: RequirementRecord, service_id: str, acronym: str
 ) -> dict[str, Any] | None:
     role = record.requirement_role
-    if role not in {"required_document", "supporting_document", "acceptable_id"}:
+    if record.scrape_status not in {"success", "partial"}:
+        return None
+    if role not in {"required_document", "supporting_document", "acceptable_id", "procedure"}:
         return None
     if record.requirement_name.startswith("[SCRAPE BLOCKED"):
         return None
@@ -215,6 +268,7 @@ def _dependency_from_record(
         "required_document": "required",
         "supporting_document": "conditional",
         "acceptable_id": "alternative",
+        "procedure": "procedure",
     }[role]
 
     target = record.target_document or record.service_name

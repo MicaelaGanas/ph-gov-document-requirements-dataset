@@ -1,8 +1,10 @@
 """PSA civil registration scraper (prototype entry point).
 
 Official sources:
-- https://psa.gov.ph/civilregistration — civil registration services overview
-- Citizen's Charter content linked from PSA pages (when accessible)
+- https://psa.gov.ph/birth-certificate
+- https://psa.gov.ph/marriage-certificate
+- https://psa.gov.ph/death-certificate
+- https://psa.gov.ph/cenomar
 
 Implementation lives in ``scraper.agencies.psa``; this module provides the
 research-project entry point requested in the project specification.
